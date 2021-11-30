@@ -37,25 +37,28 @@ public class CancionControlador {
     JWTUtil idhead;
 
     @PostMapping("/gcan") //guardar
-    public void save(@RequestBody Cancion can) {
+    public void save(@RequestBody Cancion can,@RequestHeader(value="Authorization") String token) {
+        if (!validarToken(token)) {  }
         canmon.save(can);
     }
 
-    @GetMapping("/lcan") //listar @RequestHeader(value="Authorization") String token
-    public List<Cancion> Listarcancion() {
+    @GetMapping("/lcan" ) //listar 
+    public List<Cancion> Listarcancion(@RequestHeader(value="Authorization") String token) {
 
-        //if (!validarToken(token)) { return null; }
+        if (!validarToken(token)) { return null; }
         return canmon.findAll();
 
     }
 
     @DeleteMapping("/dcan/{id}") //borrar
-    public void borrarcan(@PathVariable String id) {
+    public void borrarcan(@PathVariable String id,@RequestHeader(value="Authorization") String token) {
+        if (!validarToken(token)) {  }
         canmon.deleteById(id);
     }
 
     @PutMapping("/acan") //actualizar
-    public void actualizar(@RequestBody Cancion can) {
+    public void actualizar(@RequestBody Cancion can, @RequestHeader(value="Authorization") String token) {
+        if (!validarToken(token)) {  }
         canmon.save(can);
     }
 
