@@ -26,8 +26,12 @@ public class UsuarioControlador {
     
     
     @PostMapping("/registro") //registrarUsuario
-    public void save(@RequestBody Usuario user){
+    public String save(@RequestBody Usuario user){
+        if(usmon.veriuser(user.getNickname())){
+            return "rep";
+        }else{
         usmon.save(user);
+        return "ok";}
     }
     
 }

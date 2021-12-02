@@ -23,6 +23,11 @@ public class Usuariodaoimp {
         usdao.save(user);
     }
     
+    public boolean veriuser (String nick){
+        Optional<Usuario> us=usdao.findById(nick);
+        return us.isPresent();
+    }
+    
     public Usuario obtusercred (String nick){
         Optional<Usuario> us=usdao.findById(nick);
         if(us.isPresent()){
