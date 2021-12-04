@@ -4,11 +4,10 @@
  */
 package Rockola.can.dao;
 
-import Rockola.can.Modelo.Cancion;
+import Rockola.can.Modelo.Generos;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 
 /**
  *
@@ -16,22 +15,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class Canciondaoimp {
-    private final CancionDAO candao;
-        
-    public void save (Cancion can){
-        candao.save(can);
+public class Generosdaoimp {
+    private final GenerosDAO gendao;
+    
+    public List<Generos> findAll(){
+        return gendao.findAll();
     }
     
-    public List<Cancion> findAll(){
-        return candao.findAll();
+    public void save (Generos gen){
+        gendao.save(gen);
     }
     
-    public void deleteById(String id){
-        candao.deleteById(id);
-    }
-    
-    public List<Cancion> listarporgenero(String gen){
-        return candao.findBygen(gen);
-    }
 }

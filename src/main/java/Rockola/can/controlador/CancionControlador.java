@@ -5,8 +5,10 @@
 package Rockola.can.controlador;
 
 import Rockola.can.Modelo.Cancion;
+import Rockola.can.Modelo.Generos;
 import Rockola.can.Utilidades.JWTUtil;
 import Rockola.can.dao.Canciondaoimp;
+import Rockola.can.dao.Generosdaoimp;
 import Rockola.can.dao.Usuariodaoimp;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class CancionControlador {
 
     private final Canciondaoimp canmon;
     private final Usuariodaoimp usmon;
+    private final Generosdaoimp genmon;
     @Autowired
     JWTUtil idhead;
 
@@ -42,10 +45,10 @@ public class CancionControlador {
         canmon.save(can);
     }
 
-    @GetMapping("/lcan" ) //listar 
-    public List<Cancion> Listarcancion(@RequestHeader(value="Authorization") String token) {
+    @GetMapping("/lcan" ) //listar @RequestHeader(value="Authorization") String token
+    public List<Cancion> Listarcancion() {
 
-        if (!validarToken(token)) { return null; }
+        //if (!validarToken(token)) { return null; }
         return canmon.findAll();
 
     }
@@ -65,6 +68,26 @@ public class CancionControlador {
     private boolean validarToken(String token) {
         String usuarioId = idhead.getKey(token);
         return usuarioId != null;
+    }
+    
+    @GetMapping("/lgcan/{gen}" ) //listar 
+    public List<Cancion> Listarbygen(@PathVariable String gen) {
+
+        return canmon.listarporgenero(gen);
+
+    }
+    
+    @GetMapping("/lgen" ) //listar @RequestHeader(value="Authorization") String token
+    public List<Generos> Listargen() {
+
+        //if (!validarToken(token)) { return null; }
+        return genmon.findAll();
+
+    }
+    
+    @PostMapping("/ggen") //guardar
+    public void save(@RequestBody Generos gen) {
+        genmon.save(gen);
     }
 
 }
